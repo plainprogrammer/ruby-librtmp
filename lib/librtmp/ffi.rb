@@ -1,5 +1,5 @@
-require './lib/rtmp/ffi/amf'
-require './lib/rtmp/ffi/rtmp'
+require 'librtmp/ffi/amf'
+require 'librtmp/ffi/rtmp'
 
 module Librtmp
   module FFI
