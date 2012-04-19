@@ -1,4 +1,4 @@
 ruby-librtmp
 ============
 
-Ruby bindings to librtmp (rtmpdump) 
+Ruby bindings to librtmp (from rtmpdump) 

@@ -1,7 +1,7 @@
 require 'ffi'
 require './lib/rtmp/ffi/amf'
 
-module RTMP
+module Librtmp
   module FFI
     module RTMP
       extend ::FFI::Library
