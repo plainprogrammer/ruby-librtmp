@@ -209,7 +209,7 @@ module Librtmp
     
     attach_function :RTMP_Init, [RTMP], :void
     attach_function :RTMP_Close, [RTMP], :void
-    attach_function :RTMP_Alloc, [RTMP], RTMP
+    attach_function :RTMP_Alloc, [], RTMP
     attach_function :RTMP_Free, [RTMP], :void
     attach_function :RTMP_EnableWrite, [RTMP], :void
     
