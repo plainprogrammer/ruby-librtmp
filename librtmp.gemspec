@@ -4,7 +4,7 @@ require "librtmp/version"
 
 Gem::Specification.new do |s|
   s.name        = "librtmp"
-  s.version     = RTMP::VERSION
+  s.version     = Librtmp::VERSION
   s.authors     = ["James Thompson"]
   s.email       = ["james@plainprograms.com"]
   s.homepage    = "http://github.com/plainprograms/ruby-librtmp"
