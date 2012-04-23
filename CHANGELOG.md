@@ -1,3 +1,7 @@
+v0.1.3
+======
+* Added nil check before sending data in Streamer#send.
+
 v0.1.2
 ======
 * Fixed issue with Streamer#send not handling null bytes well for binary data;
