@@ -33,12 +33,14 @@ module Librtmp
 
     def send(data)
       if data.is_a?(Hash)
-        # TODO Handle conversion of Hash to AMF Object
-      else
-        chunk = data.to_s
-        chunk_size = chunk.bytes.to_a.size
+        packet = build_metadata_packet(data)
 
-        FFI::RTMP_Write(@session_ptr, chunk, chunk_size)
+        FFI::RTMP_SendPacket(@session_ptr, packet.pointer, 1)
+      else
+        data_buffer = ::FFI::MemoryPointer.new(:char, data.size)
+        data_buffer.put_bytes(0, data)
+
+        FFI::RTMP_Write(@session_ptr, data_buffer, data.size)
       end
     end
 
@@ -58,6 +60,41 @@ module Librtmp
       end
 
       @session = FFI::RTMP.new @session_ptr
+    end
+
+    def build_metadata_packet(data)
+      packet = FFI::RTMPPacket.new
+      amf_object = FFI::AMFObject.new
+      amf_object_ptr = amf_object.pointer
+
+      data.each do |key, value|
+        amf_prop = FFI::AMFObjectProperty.new
+        amf_prop_ptr = amf_prop.pointer
+
+        prop_name = key.to_s
+        aval = FFI::AVal.new
+        aval.av_len = prop_name.bytes.to_a.size
+        aval.av_val = ::FFI::MemoryPointer.from_string(prop_name)
+
+        amf_prop.p_name = name_aval
+
+        case value
+          when is_a?(String)
+            amf_prop.p_type = :amf_string
+
+            aval = FFI::AVal.new
+            aval.av_len = value.bytes.to_a.size
+            aval.av_val = ::FFI::MemoryPointer.from_string(value)
+
+            amf_prop.p_vu.p_aval = aval
+          else
+            #???
+        end
+
+        FFI::AMF_AddProp(amf_object_ptr, amf_prop_ptr)
+      end
+
+      packet
     end
   end
 end
