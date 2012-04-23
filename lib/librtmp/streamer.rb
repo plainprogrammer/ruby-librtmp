@@ -32,10 +32,13 @@ module Librtmp
     end
 
     def send(data)
+      return if data.nil? || data == ''
+
       if data.is_a?(Hash)
         packet = build_metadata_packet(data)
 
         FFI::RTMP_SendPacket(@session_ptr, packet.pointer, 1)
+        #FFI::RTMP_FreePacket(packet.pointer)
       else
         data_buffer = ::FFI::MemoryPointer.new(:char, data.size)
         data_buffer.put_bytes(0, data)
