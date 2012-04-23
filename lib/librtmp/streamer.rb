@@ -31,6 +31,17 @@ module Librtmp
       end
     end
 
+    def send(data)
+      if data.is_a?(Hash)
+        # TODO Handle conversion of Hash to AMF Object
+      else
+        chunk = data.to_s
+        chunk_size = chunk.bytes.to_a.size
+
+        FFI::RTMP_Write(@session_ptr, chunk, chunk_size)
+      end
+    end
+
     def disconnect
       FFI::RTMP_Close(@session_ptr)
       FFI::RTMP_Free(@session_ptr)
