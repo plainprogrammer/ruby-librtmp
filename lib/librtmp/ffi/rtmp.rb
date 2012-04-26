@@ -24,7 +24,7 @@ module Librtmp
              :m_packetType,      :uint8,
              :m_hasAbsTimestamp, :uint8,
              :m_nChannel,        :int,
-             :m_nTimestamp,      :uint32,
+             :m_nTimeStamp,      :uint32,
              :m_nInfoField2,     :int32,
              :m_nBodySize,       :uint32,
              :m_nBytesRead,      :uint32,
@@ -168,6 +168,8 @@ module Librtmp
              :m_sb,               RTMPSockBuf,
              :Link,               RTMP_LNK
     end
+
+    attach_function :RTMP_GetTime, [], :uint32
 
     attach_function :RTMPPacket_Reset, [RTMPPacket], :void
     attach_function :RTMPPacket_Dump, [RTMPPacket], :void

@@ -86,13 +86,13 @@ module Librtmp
     # void AMF_DecodeLongString(const char *data, AVal * str);
     # int AMF_DecodeBoolean(const char *data);
     # double AMF_DecodeNumber(const char *data);
-    attach_function :AMF_DecodeInt16, [:string], :ushort
-    attach_function :AMF_DecodeInt24, [:string], :uint
-    attach_function :AMF_DecodeInt32, [:string], :uint
-    attach_function :AMF_DecodeString, [:string, AVal], :void
-    attach_function :AMF_DecodeLongString, [:string, AVal], :void
-    attach_function :AMF_DecodeBoolean, [:string], :int
-    attach_function :AMF_DecodeNumber, [:string], :double
+    attach_function :AMF_DecodeInt16, [:pointer], :ushort
+    attach_function :AMF_DecodeInt24, [:pointer], :uint
+    attach_function :AMF_DecodeInt32, [:pointer], :uint
+    attach_function :AMF_DecodeString, [:pointer, AVal], :void
+    attach_function :AMF_DecodeLongString, [:pointer, AVal], :void
+    attach_function :AMF_DecodeBoolean, [:pointer], :int
+    attach_function :AMF_DecodeNumber, [:pointer], :double
 
     # char *AMF_Encode(AMFObject * obj, char *pBuffer, char *pBufEnd);
     # int AMF_Decode(AMFObject * obj, const char *pBuffer, int nSize, int bDecodeName);
