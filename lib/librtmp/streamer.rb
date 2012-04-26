@@ -35,15 +35,9 @@ module Librtmp
       return if data.nil? || data == ''
 
       if data.is_a?(Hash)
-        packet = build_metadata_packet(data)
-
-        FFI::RTMP_SendPacket(@session_ptr, packet.pointer, 1)
-        #FFI::RTMP_FreePacket(packet.pointer)
-      else
-        data_buffer = ::FFI::MemoryPointer.new(:char, data.size)
-        data_buffer.put_bytes(0, data)
-
-        FFI::RTMP_Write(@session_ptr, data_buffer, data.size)
+        send_metadata_packet(data)
+      elsif is_flv?(data)
+        FFI::RTMP_Write(@session_ptr, data, data.size)
       end
     end
 
@@ -65,7 +59,7 @@ module Librtmp
       @session = FFI::RTMP.new @session_ptr
     end
 
-    def build_metadata_packet(data)
+    def send_metadata_packet(data)
       packet = FFI::RTMPPacket.new
       amf_object = FFI::AMFObject.new
       amf_object_ptr = amf_object.pointer
@@ -98,6 +92,10 @@ module Librtmp
       end
 
       packet
+    end
+
+    def is_flv?(data)
+      data[0..2] == 'FLV'
     end
   end
 end
