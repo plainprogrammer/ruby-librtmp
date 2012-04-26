@@ -1,3 +1,7 @@
+NEXT
+====
+* Added check to make sure we only use RTMP_Write() when we are sending FLV data.
+
 v0.1.3
 ======
 * Added nil check before sending data in Streamer#send.
