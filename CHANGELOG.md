@@ -1,6 +1,7 @@
-NEXT
-====
+v0.1.4
+======
 * Added check to make sure we only use RTMP_Write() when we are sending FLV data.
+* Updated FFI implementation.
 
 v0.1.3
 ======
