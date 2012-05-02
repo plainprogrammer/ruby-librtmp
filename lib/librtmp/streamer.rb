@@ -37,7 +37,7 @@ module Librtmp
       if data.is_a?(Hash)
         send_metadata_packet(data)
       elsif is_flv?(data)
-        FFI::RTMP_Write(@session_ptr, data, data.size)
+        FFI::RTMP_Write(@session_ptr, data, data.size, 1)
       end
     end
 

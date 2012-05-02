@@ -235,7 +235,7 @@ module Librtmp
     attach_function :RTMP_SendClientBW, [RTMP], :int
     attach_function :RTMP_DropRequest, [RTMP, :int, :int], :void
     attach_function :RTMP_Read, [RTMP, :pointer, :int], :int
-    attach_function :RTMP_Write, [RTMP, :pointer, :int], :int
+    attach_function :RTMP_Write, [RTMP, :pointer, :int, :int], :int
     
     attach_function :RTMP_HashSWF, [:string, :pointer, :pointer, :int], :int
   end
